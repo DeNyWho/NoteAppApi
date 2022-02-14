@@ -22,10 +22,10 @@ import java.lang.Exception
 //@Location(LOGIN_REQUEST)
 //class UserLoginRoute
 
-val API_VERSION = "/v1"
-val USERS = "$API_VERSION/users"
-val REGISTER_REQUEST = "$USERS/register"
-val LOGIN_REQUEST = "$USERS/login"
+const val API_VERSION = "/v1"
+const val USERS = "$API_VERSION/users"
+const val REGISTER_REQUEST = "$USERS/register"
+const val LOGIN_REQUEST = "$USERS/login"
 
 fun Route.userRoutes(
     db:Repo,

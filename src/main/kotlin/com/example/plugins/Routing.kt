@@ -4,8 +4,10 @@ import com.example.authentication.JwtService
 import com.example.authentication.hash
 import com.example.repository.DatabaseFactory
 import com.example.repository.Repo
+import com.example.routes.noteRoutes
 import com.example.routes.userRoutes
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.locations.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -23,6 +25,7 @@ fun Application.configureRouting() {
         val hashFun = { s: String -> hash(s) }
         install(Locations)
         userRoutes(db, jwtService, hashFun)
+        noteRoutes(db, hashFun)
 
         route("/notes") {
 
