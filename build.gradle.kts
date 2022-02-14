@@ -29,6 +29,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.freeCompilerArgs += listOf("-Xopt-in=io.ktor.server.locations.KtorExperimentalLocationsAPI")
 }
 
+tasks.create("stage") {
+    dependsOn("installDist")
+}
+
 dependencies {
 
     //exposed

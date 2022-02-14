@@ -29,7 +29,7 @@ object DatabaseFactory {
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
         config.validate()
- 
+
         return HikariDataSource(config)
     }
 
