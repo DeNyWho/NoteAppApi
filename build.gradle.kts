@@ -10,6 +10,7 @@ plugins {
     kotlin("jvm") version "1.6.10"
 }
 
+
 group = "com.example"
 version = "0.0.1"
 application {
@@ -17,9 +18,15 @@ application {
 }
 
 repositories {
-    mavenLocal()
+    mavenCentral()
     jcenter()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+    google()
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap/io/ktor/ktor-locations/2.0.0-eap-278/") }
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap/io/ktor/ktor-locations/") }
+}
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.freeCompilerArgs += listOf("-Xopt-in=io.ktor.server.locations.KtorExperimentalLocationsAPI")
 }
 
 dependencies {
@@ -35,6 +42,7 @@ dependencies {
     // Hikari Apping
     implementation ("com.zaxxer:HikariCP:$hikariVersion")
 
+    implementation("io.ktor:ktor-server-locations-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-sessions-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-auth-jvm:$ktorVersion")

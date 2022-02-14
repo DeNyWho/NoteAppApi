@@ -11,7 +11,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
 
-    fun init (){
+    fun init() {
         Database.connect(hikari())
 
         transaction {
@@ -19,7 +19,7 @@ object DatabaseFactory {
         }
     }
 
-    private fun hikari(): HikariDataSource{
+    fun hikari(): HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = System.getenv("JDBC_DRIVER_1")
         config.jdbcUrl = System.getenv("JDBC_DATABASE_URL_1")

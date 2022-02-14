@@ -11,16 +11,17 @@ class JwtService {
     private val jwtSecret = System.getenv("JWT_SECRET")
     private val algorithm = Algorithm.HMAC512(jwtSecret)
 
-    val verifier: JWTVerifier = JWT
+    val verifier:JWTVerifier = JWT
         .require(algorithm)
         .withIssuer(issuer)
         .build()
 
-    fun generateToken(user: User): String = JWT
-        .create()
-        .withSubject("NoteAuthentication")
-        .withIssuer(issuer)
-        .withClaim("email", user.email)
-        .sign(algorithm)
+    fun generateToken(user:User):String {
+        return JWT.create()
+            .withSubject("NOteAuthentication")
+            .withIssuer(issuer)
+            .withClaim("email",user.email)
+            .sign(algorithm)
+    }
 
 }

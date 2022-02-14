@@ -2,50 +2,41 @@ package com.example.plugins
 
 import com.example.authentication.JwtService
 import com.example.authentication.hash
-import com.example.data.model.User
-import io.ktor.server.routing.*
+import com.example.repository.DatabaseFactory
+import com.example.repository.Repo
+import com.example.routes.userRoutes
 import io.ktor.server.application.*
-import io.ktor.server.response.*
+import io.ktor.server.locations.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
-
     fun hashFunction(s: String) = hash(s)
     val jwtService = JwtService()
+    val db = Repo()
 
     routing {
         get("/") {
             call.respondText("Hello World!")
         }
+        val hashFun = { s: String -> hash(s) }
+        install(Locations)
+        userRoutes(db, jwtService, hashFun)
 
-        get("/note/{id}"){
-            val id = call.parameters["id"]
-            call.respond("${id}")
-        }
-
-        get("/token"){
-            val email = call.request.queryParameters["email"]!!
-            val password = call.request.queryParameters["password"]!!
-            val username = call.request.queryParameters["username"]!!
-
-            val user = User(email,hashFunction(password),username)
-            call.respond(jwtService.generateToken(user))
-
-        }
-
-        route("/notes"){
+        route("/notes") {
 
 
-            route("/create"){
+            route("/create") {
 
                 //localhost:8000/notes/create
-                post{
+                post {
                     val body = call.receive<String>()
                     call.respond(body)
                 }
             }
 
-            delete{
+            delete {
                 val body = call.receive<String>()
                 call.respond(body)
             }
